@@ -1,28 +1,18 @@
 import sys, getopt
-from pyproj import Proj
+from osgeo import osr
 
 print 'Number of args:', len(sys.argv), 'arguments.'
 print 'Argument list:', str(sys.argv)
 
-
+nyc  = osr.SpatialReference()
+nyc.ImportFromEPSG(2263) 
+wgs84 = osr.SpatialReference()
+wgs84.ImportFromEPSG(4326)
 
 def main(argv):
 	# we'll set these vars equal to the input args
-	xcoord = [0]
-	ycoord = [0]
-	
-	# define the map projection & boundaries
-	pnyc = Proj(
-		proj='lcc',
-		datum='NAD83',
-		lat_1=40.666667,
-		lat_2=41.033333,
-		lat_0=40.166667,
-		lon_0=-74.0,
-		x_0=984250.0,
-		y_0=0.0,
-		preserve_units=True
-		)
+	xcoord = [987899.0]
+	ycoord = [212072.0]
 	
 	try:
 		opts, args = getopt.getopt(argv,"x:y:")
@@ -38,10 +28,10 @@ def main(argv):
 	print 'X coordinate is "', xcoord
 	print 'Y coodtinate is "', ycoord
 	
-	lat, lon = pnyc(xcoord, ycoord, inverse=True)
+	transformation = osr.CoordinateTransformation(nyc,wgs84)
+	result = transformation.TransformPoint(xcoord, ycoord)
+	print result
 	
-	print 'Lat: ', lat
-	print 'Lon: ', lon
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
