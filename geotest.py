@@ -11,8 +11,8 @@ wgs84.ImportFromEPSG(4326)
 
 def main(argv):
 	# we'll set these vars equal to the input args
-	xcoord = [987899.0]
-	ycoord = [212072.0]
+	xcoord = 987899.0
+	ycoord = 212072.0
 	
 	try:
 		opts, args = getopt.getopt(argv,"x:y:")
