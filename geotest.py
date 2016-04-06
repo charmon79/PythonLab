@@ -43,7 +43,7 @@ def main(argv):
 	inputFile = open(inputFileName,'rb') #opens the CSV file to read
 	outputFile = open(outputFileName,'wb') #opens the target CSV file to write
 	try:
-		reader = csv.reader(inputFile)
+		reader = csv.DictReader(inputFile)
 		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for row in reader:
 			print row
