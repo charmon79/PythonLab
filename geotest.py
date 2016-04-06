@@ -50,7 +50,7 @@ def main(argv):
 			writer.writerow(row)
 			if rownum == 0:
 				header = row
-			else:
+			#else:
 				
 			rownum += 1
 			if rownum > 10:
