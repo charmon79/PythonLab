@@ -1,8 +1,8 @@
 import sys, csv, getopt
 from osgeo import osr
 
-print 'Number of args:', len(sys.argv), 'arguments.'
-print 'Argument list:', str(sys.argv)
+#print 'Number of args:', len(sys.argv), 'arguments.'
+#print 'Argument list:', str(sys.argv)
 
 nyc  = osr.SpatialReference()
 nyc.ImportFromEPSG(2263) 
@@ -10,27 +10,20 @@ wgs84 = osr.SpatialReference()
 wgs84.ImportFromEPSG(4326)
 
 def main(argv):
-	# we'll set these vars equal to the input args
-	xcoord = 987899.0
-	ycoord = 212072.0
 	
 	try:
-		opts, args = getopt.getopt(argv,"x:y:i:o:")
+		opts, args = getopt.getopt(argv,"i:o:")
 	except getopt.GetoptError:
 		assert False, 'failed to parse args'
 	for opt, arg in opts:
-		if opt == "-x":
-			xcoord = arg
-		elif opt == "-y":
-			ycoord = arg
-		elif opt == "-i":
+		if opt == "-i":
 			inputFileName = arg
 		elif opt == "-o":
 			outputFileName = arg
 		else:
 			assert False, "unhandled input option"
-	print 'X coordinate is: ', xcoord
-	print 'Y coodtinate is: ', ycoord
+	#print 'X coordinate is: ', xcoord
+	#print 'Y coodtinate is: ', ycoord
 	print 'input file name is: ', inputFileName
 	print 'output file name is: ', outputFileName
 	
@@ -46,7 +39,7 @@ def main(argv):
 		reader = csv.reader(inputFile)
 		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for row in reader:
-			print row
+			#print row
 			if rownum == 0:
 				row.append('lat')
 				row.append('lon')
@@ -61,8 +54,8 @@ def main(argv):
 				row.append(lon)
 			writer.writerow(row)
 			rownum += 1
-			if rownum > 10:
-				break
+			#if rownum > 10:
+			#	break
 	finally:
 		inputFile.close()
 		outputFile.close()
