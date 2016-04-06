@@ -15,7 +15,7 @@ def main(argv):
 	ycoord = 212072.0
 	
 	try:
-		opts, args = getopt.getopt(argv,"x:y:")
+		opts, args = getopt.getopt(argv,"x:y:f:")
 	except getopt.GetoptError:
 		assert False, 'failed to parse args'
 	for opt, arg in opts:
