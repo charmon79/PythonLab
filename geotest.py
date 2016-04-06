@@ -47,7 +47,7 @@ def main(argv):
 		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for row in reader:
 			print row
-			geopoint = transformation.TransformPoint(row[72], row[73])
+			geopoint = transformation.TransformPoint(float(row[72]), float(row[73]))
 			lat = geopoint[0]
 			lon = geopoint[1]
 			row.append(lat)
