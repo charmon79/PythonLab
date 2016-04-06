@@ -45,6 +45,8 @@ def main(argv):
 			looper += 1
 			if looper > 10:
 				break
+	finally:
+		inputFile.close()
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
