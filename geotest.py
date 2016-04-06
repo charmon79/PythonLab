@@ -48,8 +48,8 @@ def main(argv):
 				row.append('')
 			else:
 				geopoint = transformation.TransformPoint(float(row[72]), float(row[73]))
-				lat = geopoint[0]
-				lon = geopoint[1]
+				lat = geopoint[1]
+				lon = geopoint[0]
 				row.append(lat)
 				row.append(lon)
 			writer.writerow(row)
