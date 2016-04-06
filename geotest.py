@@ -43,12 +43,12 @@ def main(argv):
 	inputFile = open(inputFileName,'rb') #opens the CSV file to read
 	outputFile = open(outputFileName,'wb') #opens the target CSV file to write
 	try:
-		reader = csv.DictReader(inputFile)
+		reader = csv.reader(inputFile)
 		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for row in reader:
 			print row
-			row.append('foo')
-			row.append('bar')
+			row.append(row[73])
+			row.append(row[74])
 			writer.writerow(row)
 			if rownum == 0:
 				header = row
