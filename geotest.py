@@ -34,9 +34,9 @@ def main(argv):
 	print 'input file name is: ', inputFileName
 	print 'output file name is: ', outputFileName
 	
-	#transformation = osr.CoordinateTransformation(nyc,wgs84)
-	#result = transformation.TransformPoint(xcoord, ycoord)
-	#print result
+	transformation = osr.CoordinateTransformation(nyc,wgs84)
+	#geopoint = transformation.TransformPoint(xcoord, ycoord)
+	#print geopoint
 	
 	rownum = 0
 	
@@ -47,8 +47,11 @@ def main(argv):
 		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for row in reader:
 			print row
-			row.append(row[72])
-			row.append(row[73])
+			geopoint = transformation.TransformPoint(row[72], row[73])
+			lat = geopoint[0]
+			lon = geopoint[1]
+			row.append(lat)
+			row.append(lon)
 			writer.writerow(row)
 			if rownum == 0:
 				header = row
