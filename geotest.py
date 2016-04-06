@@ -48,7 +48,7 @@ def main(argv):
 		for row in reader:
 			print row
 			writer.writerow(row)
-			if rownum = 0:
+			if rownum == 0:
 				header = row
 			else:
 				
