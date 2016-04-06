@@ -50,6 +50,9 @@ def main(argv):
 			if rownum == 0:
 				row.append('lat')
 				row.append('lon')
+			elif row[72] = '' or row[73] = '' #sometimes XCoord & YCoord are blank
+				row.append('')
+				row.append('')
 			else:
 				geopoint = transformation.TransformPoint(float(row[72]), float(row[73]))
 				lat = geopoint[0]
