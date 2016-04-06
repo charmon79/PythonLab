@@ -47,16 +47,16 @@ def main(argv):
 		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for row in reader:
 			print row
-			geopoint = transformation.TransformPoint(float(row[72]), float(row[73]))
-			lat = geopoint[0]
-			lon = geopoint[1]
-			row.append(lat)
-			row.append(lon)
-			writer.writerow(row)
 			if rownum == 0:
-				header = row
-			#else:
-				
+				row.append('lat')
+				row.append('lon')
+			else:
+				geopoint = transformation.TransformPoint(float(row[72]), float(row[73]))
+				lat = geopoint[0]
+				lon = geopoint[1]
+				row.append(lat)
+				row.append(lon)
+			writer.writerow(row)
 			rownum += 1
 			if rownum > 10:
 				break
