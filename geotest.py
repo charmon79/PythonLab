@@ -31,10 +31,20 @@ def main(argv):
 	print 'Y coodtinate is: ', ycoord
 	print 'input file name is: ', inputFileName
 	
-	transformation = osr.CoordinateTransformation(nyc,wgs84)
-	result = transformation.TransformPoint(xcoord, ycoord)
-	print result
+	#transformation = osr.CoordinateTransformation(nyc,wgs84)
+	#result = transformation.TransformPoint(xcoord, ycoord)
+	#print result
 	
+	looper = 0
+	
+	inputFile = open(inputFileName,'rb') #opens the CSV file
+	try:
+		reader = csv.reader(inputFile)
+		for row in reader:
+			print row
+			looper += 1
+			if looper > 10:
+				break
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
