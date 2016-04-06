@@ -1,4 +1,4 @@
-import sys, getopt
+import sys, csv, getopt
 from osgeo import osr
 
 print 'Number of args:', len(sys.argv), 'arguments.'
@@ -23,10 +23,13 @@ def main(argv):
 			xcoord = arg
 		elif opt == "-y":
 			ycoord = arg
+		elif opt == "-i":
+			inputFileName = arg
 		else:
 			assert False, "unhandled input option"
-	print 'X coordinate is "', xcoord
-	print 'Y coodtinate is "', ycoord
+	print 'X coordinate is: ', xcoord
+	print 'Y coodtinate is: ', ycoord
+	print 'input file name is: ', inputFileName
 	
 	transformation = osr.CoordinateTransformation(nyc,wgs84)
 	result = transformation.TransformPoint(xcoord, ycoord)
