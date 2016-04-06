@@ -47,6 +47,8 @@ def main(argv):
 		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 		for row in reader:
 			print row
+			row.append('foo')
+			row.append('bar')
 			writer.writerow(row)
 			if rownum == 0:
 				header = row
