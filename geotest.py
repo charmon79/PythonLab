@@ -37,7 +37,7 @@ def main(argv):
 	outputFile = open(outputFileName,'wb') #opens the target CSV file to write
 	try:
 		reader = csv.reader(inputFile)
-		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+		writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 		for row in reader:
 			#print row
 			if rownum == 0:
