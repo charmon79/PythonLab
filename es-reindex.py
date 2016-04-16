@@ -1,9 +1,11 @@
-import sys, getopt, thread
+import sys, getopt, time, thread
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex
 from elasticsearch.exceptions import ConnectionError, NotFoundError
 
-finished = 0 # we'll use this to check if reindex is done from a parallel thread
+finished = False # we'll use this to check if reindex is done from a parallel thread
+success = False # and we'll use this to check if the reindex completed successfully or not
+startTime = time.time()
 
 # def usageError():
 # 	print >> sys.stderr, ("Usage: "+str(sys.argv[0])+" url source target")
@@ -29,7 +31,7 @@ except IndexError:
 # except IndexError:
 # 	usageError()
 
-def esReindex():
+def DoReindex():
 	# print "should see me"
 
 	# instantiate the ES object.
@@ -58,11 +60,29 @@ def esReindex():
 				exit()
 	# passed validation checks, so let's do the reindex thing now
 	try:
+		print url + ': copying data from \"'+source+'\" to \"'+target+'\"...' 
+		# startTime = time.time()		
 		reindex(es, source, target)
-	finally:
-		finished = 1
+
+		# print url + ': copy complete ('+str(elapsedTime)+' seconds)'
+		finished = True
+		success = True
+	except:
+		finished = True
+		raise
+
+def StatusWatcher():
+	while finished == False:
+		elapsedTime = time.time() - startTime
+		if elapsedTime % 2 == 0:
+			print str(elapsedTime)
+	elapsedTime = time.time() - startTime
+	print url + ': copy complete ('+str(elapsedTime)+' seconds)'
+
 
 if __name__ == '__main__':
-	# print "should be starting a thread"
-	# thread.start_new_thread(esReindex,())
-	esReindex()
+	# DoReindex()
+	thread.start_new_thread(DoReindex,())
+	thread.start_new_thread(StatusWatcher,())
+	while 1:
+		pass
